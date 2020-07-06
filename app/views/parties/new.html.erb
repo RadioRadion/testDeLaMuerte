@@ -1,0 +1,10 @@
+<p>coucou</p>
+<% @letters.each do |letter| %>
+  <%= letter %>
+<% end %>
+
+<%= form_for @party do |f| %>
+  <%= f.label :word %>
+  <%= f.text_field :word %>
+  <%= f.submit %>
+<% end %>
