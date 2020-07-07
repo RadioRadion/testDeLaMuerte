@@ -2,18 +2,24 @@ class Party < ApplicationRecord
   belongs_to :game
   has_many :solutions
 
-  validates :ten_letters_list, presence: true, length: { is: 10 }
+  validates :ten_letters_list, presence: true
   validates :word, presence: true, length: { in: 2...10 }
   validate :is_dictionnary?, on: :create
   validate :is_present?, on: :create
-  validates :available, presence: true, inclusion: { in: [true, false] }
+  # validates :available, presence: true, inclusion: { in: [true, false] }
 
   def is_dictionnary?
-    errors.add(:word, "The word isn't in the dictionnary") unless frenchDic.include?(:word)
+    errors.add(:word, "The word isn't in the dictionnary") unless frenchDic.include?(self.word.upcase)
   end
 
   def is_present?
-    errors.add(:word, "The letters of the word are not all compatibles") unless self.word.chars.all? { |letter| self.ten_letters_list.include?(letter) }
+    errors.add(:word, "The letters of the word are not all compatibles") unless allPresent(self.word, self.ten_letters_list)
+  end
+
+  def allPresent(word, letters)
+    pickLetters = letters.chars.map { |letter| letter }
+    word.upcase.chars.each { |letter| pickLetters.delete_at(pickLetters.index(letter)) if pickLetters.include?(letter) }
+    true if word.length == (letters.length - pickLetters.length)
   end
 
   def frenchDic

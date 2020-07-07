@@ -1,5 +1,4 @@
 class PartiesController < ApplicationController
-  # before_action :init
 
   def new
     @letters = random_letters
@@ -8,28 +7,53 @@ class PartiesController < ApplicationController
 
   def create
     @dictionnary = frenchDic
+    @letters = params[:party][:ten_letters_list]
     @game = game_init
     @party = Party.new(party_params)
-    @party.ten_letters_list = @@letters.join
+    @party.ten_letters_list = @letters
     @party.game = @game
     @party.available = false
-    @solutions = compare
-    @party.save!
+    @solutions = compare(@dictionnary, @letters)
+    if @party.save
+      save_solutions
+      redirect_to party_path(@party)
+    else
+      render :new
+    end
+  end
+
+  def show
+    @party = Party.find(params[:id])
+    @solutions = Solution.where(party_id: @party)
   end
 
   private
+
+  def save_solutions
+    @solutions.each do |solution|
+      Solution.create!(word: solution, party_id: @party.id)
+    end
+  end
 
   def game_init
     return Game.new if (current_user.games.blank? || current_user.games.last.parties.length == 5)
     current_user.games.last
   end
 
+  # def game_init
+  #   if (current_user.games.blank? || current_user.games.last.parties.length == 5)
+  #     @game = Game.new
+  #   else
+  #     current_user.games.last
+  #   end
+  # end
+
   def party_params
     params.require(:party).permit(:word)
   end
 
   def random_letters
-    random_letters = (voyels + consonants).shuffle
+    random_letters = (voyels + consonants).shuffle.join
   end
 
   def voyels
@@ -55,12 +79,12 @@ class PartiesController < ApplicationController
     dictionnary
   end
 
-  def compare
+  def compare(dictionnary, letters)
     results = []
     dictionnary.each do |word|
-      pickLetters = @@letters.map { |letter| letter }
+      pickLetters = letters.chars.map { |letter| letter }
       word.chars.each { |letter| pickLetters.include?(letter) ? pickLetters.delete_at(pickLetters.index(letter)) : false }
-      results << word if word.length == (@@letters.length - pickLetters.length)
+      results << word if word.length == (letters.length - pickLetters.length)
     end
     return results.sort{|x, y| x.length <=> y.length}.last(10)
   end

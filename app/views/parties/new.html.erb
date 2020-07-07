@@ -1,10 +1,10 @@
 <p>coucou</p>
-<% @letters.each do |letter| %>
+<% @letters.chars.each do |letter| %>
   <%= letter %>
 <% end %>
 
-<%= form_for @party do |f| %>
-  <%= f.label :word %>
-  <%= f.text_field :word %>
+<%= simple_form_for @party do |f| %>
+  <%= f.input :word %>
+  <%= f.input :ten_letters_list, :as => :hidden, :input_html => { :value => @letters } %>
   <%= f.submit %>
 <% end %>
