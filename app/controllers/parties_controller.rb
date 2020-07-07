@@ -1,6 +1,7 @@
 class PartiesController < ApplicationController
 
   def new
+    game_init
     @letters = random_letters
     @party = Party.new
   end
@@ -8,13 +9,14 @@ class PartiesController < ApplicationController
   def create
     @dictionnary = frenchDic
     @letters = params[:party][:ten_letters_list]
-    @game = game_init
+    @game = current_user.games.last
     @party = Party.new(party_params)
     @party.ten_letters_list = @letters
     @party.game = @game
-    @party.available = false
+    @party.available = true
     @solutions = compare(@dictionnary, @letters)
     if @party.save
+      save_scores
       save_solutions
       redirect_to party_path(@party)
     else
@@ -23,6 +25,7 @@ class PartiesController < ApplicationController
   end
 
   def show
+    @game = current_user.games.last
     @party = Party.find(params[:id])
     @solutions = Solution.where(party_id: @party)
   end
@@ -35,18 +38,22 @@ class PartiesController < ApplicationController
     end
   end
 
-  def game_init
-    return Game.new if (current_user.games.blank? || current_user.games.last.parties.length == 5)
-    current_user.games.last
+  def save_scores
+    actual_score = 0
+    @game.parties.all.each do |party|
+      actual_score += party.word.length
+    end
+    current_user.best_score = actual_score if actual_score > current_user.best_score
+    current_user.update!(actual_score: actual_score, best_score: current_user.best_score)
   end
 
-  # def game_init
-  #   if (current_user.games.blank? || current_user.games.last.parties.length == 5)
-  #     @game = Game.new
-  #   else
-  #     current_user.games.last
-  #   end
-  # end
+  def game_init
+    if (current_user.games.blank? || current_user.games.last.parties.length == 5)
+      @game = Game.create!(user_id: current_user.id)
+    else
+      @game = current_user.games.last
+    end
+  end
 
   def party_params
     params.require(:party).permit(:word)

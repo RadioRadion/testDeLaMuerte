@@ -1,1 +1,10 @@
-"coucou"
+nombre de parties : <%= @game.parties.length %>
+nombre de mots : <%= @game.parties.length %>
+meilleur score : <%= current_user.best_score %>
+score actuel :  <%= current_user.actual_score %>
+Les 10 meilleures réponses :
+<% @party.solutions.all.each do |solution| %>
+<p><%= solution.word %></p>
+<% end %>
+
+<%= link_to "rejouer", root_path %>

@@ -1,6 +1,6 @@
 class Party < ApplicationRecord
   belongs_to :game
-  has_many :solutions
+  has_many :solutions, dependent: :destroy
 
   validates :ten_letters_list, presence: true
   validates :word, presence: true, length: { in: 2...10 }
