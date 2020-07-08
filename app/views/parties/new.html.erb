@@ -1,10 +1,14 @@
-<p>coucou</p>
-<% @letters.chars.each do |letter| %>
-  <%= letter %>
-<% end %>
+<div class="container py-5 text-center  ">
+  <div class="d-flex justify-content-center flex-wrap pb-5">
+    <% @letters.chars.each do |letter| %>
+      <div class="letter-card text-shadow"><%= letter %></div>
+    <% end %>
+  </div>
 
-<%= simple_form_for @party do |f| %>
-  <%= f.input :word %>
-  <%= f.input :ten_letters_list, :as => :hidden, :input_html => { :value => @letters } %>
-  <%= f.submit %>
-<% end %>
+  <%= simple_form_for @party do |f| %>
+    <%= f.input_field :word %>
+    <%= f.input :ten_letters_list, :as => :hidden, :input_html => { :value => @letters } %>
+    <%= f.button :submit, "Jouer", class: "btn" %>
+  <% end %>
+
+</div>

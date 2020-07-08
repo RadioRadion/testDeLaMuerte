@@ -1,10 +1,41 @@
-nombre de parties : <%= @game.parties.length %>
-nombre de mots : <%= @game.parties.length %>
-meilleur score : <%= current_user.best_score %>
-score actuel :  <%= current_user.actual_score %>
-Les 10 meilleures réponses :
-<% @party.solutions.all.each do |solution| %>
-<p><%= solution.word %></p>
-<% end %>
+<div class="container py-5 text-center  ">
+  <div class="d-flex justify-content-between color-white font-bold">
+    <div class="">
+      <p>Nbr de parties : <%= @game.parties.length %></p>
+      <p>Nbr de mots restants : <%= (5 - @game.parties.length) %></p>
+    </div>
+    <div class="text-right">
+      <p>Meilleur score : <%= current_user.best_score %></p>
+      <p>Score actuel :  <%= current_user.actual_score %></p>
+    </div>
+  </div>
 
-<%= link_to "rejouer", root_path %>
+  <div class="d-flex justify-content-center flex-wrap pb-5">
+    <% @party.ten_letters_list.chars.each do |letter| %>
+      <div class="letter-card text-shadow"><%= letter %></div>
+    <% end %>
+  </div>
+
+  <h2><%= @party.word %></h2>
+
+  <div class="card p-3 mt-3 bdr-16">
+    <h3 class="font-bold color-blue">Les 10 meilleures réponses :</h3>
+    <div class="d-flex justify-content-around">
+      <div>
+        <% @party.solutions.first(5).each do |solution| %>
+          <div class="font-bold p-1"><%= solution.word %></div>
+        <% end %>
+      </div>
+      <div>
+        <% @party.solutions.last(5).each do |solution| %>
+          <div class="font-bold p-1"><%= solution.word %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="pt-3">
+    <%= link_to "rejouer", root_path, class: 'btn' %>
+  </div>
+
+</div>

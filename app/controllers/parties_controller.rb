@@ -33,7 +33,7 @@ class PartiesController < ApplicationController
   private
 
   def save_solutions
-    @solutions.each do |solution|
+    @solutions.reverse.each do |solution|
       Solution.create!(word: solution, party_id: @party.id)
     end
   end

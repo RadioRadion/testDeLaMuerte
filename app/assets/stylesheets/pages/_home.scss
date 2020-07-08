@@ -1,1 +1,32 @@
 // Specific CSS for your home-page
+body {
+  background: linear-gradient(to right, #f5af19, #f12711);
+}
+
+h2 {
+  border-radius: 16px;
+  font-weight: bold;
+  color: #3261CF;
+  padding: 10px;
+  background: white;
+}
+
+.card {
+  border-radius: 16px !important;
+}
+
+#party_word {
+  width: 100%;
+}
+
+.color-white {
+  color: white;
+}
+
+.color-blue {
+  color: #3261CF;
+}
+
+.font-bold {
+  font-weight: bold;
+}
