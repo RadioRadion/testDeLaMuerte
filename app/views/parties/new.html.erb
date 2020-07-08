@@ -6,7 +6,7 @@
   </div>
 
   <%= simple_form_for @party do |f| %>
-    <%= f.input_field :word %>
+    <%= f.input :word, label: false %>
     <%= f.input :ten_letters_list, :as => :hidden, :input_html => { :value => @letters } %>
     <%= f.button :submit, "Jouer", class: "btn" %>
   <% end %>

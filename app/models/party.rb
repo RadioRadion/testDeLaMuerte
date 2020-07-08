@@ -9,11 +9,11 @@ class Party < ApplicationRecord
   # validates :available, presence: true, inclusion: { in: [true, false] }
 
   def is_dictionnary?
-    errors.add(:word, "The word isn't in the dictionnary") unless frenchDic.include?(self.word.upcase)
+    errors.add(:word, "isn't in the dictionnary") unless frenchDic.include?(self.word.upcase)
   end
 
   def is_present?
-    errors.add(:word, "The letters of the word are not all compatibles") unless allPresent(self.word, self.ten_letters_list)
+    errors.add(:word, "'s letters of the word are not all compatibles") unless allPresent(self.word, self.ten_letters_list)
   end
 
   def allPresent(word, letters)
