@@ -13,7 +13,7 @@ class Party < ApplicationRecord
   end
 
   def is_present?
-    errors.add(:word, "'s letters of the word are not all compatibles") unless allPresent(self.word, self.ten_letters_list)
+    errors.add(:word, "'s letters are not all compatibles") unless allPresent(self.word, self.ten_letters_list)
   end
 
   def allPresent(word, letters)
