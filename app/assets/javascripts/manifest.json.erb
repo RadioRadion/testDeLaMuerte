@@ -1,19 +1,26 @@
-<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
 {
-  "name": "My Progressive Rails App",
-  "short_name": "Progressive",
+  "name": "Word Sprint",
+  "short_name": "WS",
   "start_url": "/",
   "icons": [
-  <% icon_sizes.map { |s| "#{s}x#{s}" }.each.with_index do |dim, i| %>
     {
-      "src": "<%= image_path "serviceworker-rails/heart-#{dim}.png" %>",
-      "sizes": "<%= dim %>",
-      "type": "image/png"
-    }<%= i == (icon_sizes.length - 1) ? '' : ',' %>
-  <% end %>
+      "src": "<%= image_path "logo-48.png" %>",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "<%= image_path "logo-96.png" %>",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "<%= image_path "logo-192.png" %>",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
   ],
   "theme_color": "#000000",
-  "background_color": "#FFFFFF",
+  "background_color": "#7ed6ff",
   "display": "fullscreen",
   "orientation": "portrait"
 }
