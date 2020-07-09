@@ -1,18 +1,14 @@
 // Specific CSS for your home-page
 body {
-  background: linear-gradient(to right, #f5af19, #f12711);
+  background: linear-gradient(to right, $blue, $orange);
 }
 
 h2 {
   border-radius: 16px;
   font-weight: bold;
-  color: #f5af19;
+  color: $blue;
   padding: 10px;
   background: white;
-}
-
-.card {
-  border-radius: 16px !important;
 }
 
 .invalid-feedback {
@@ -28,7 +24,7 @@ h2 {
 }
 
 .color-blue {
-  color: #f5af19;
+  color: $blue;
 }
 
 .font-bold {
@@ -36,5 +32,5 @@ h2 {
 }
 
 .font-logo {
-  color: #f5af19 !important;
+  color: $blue !important;
 }
