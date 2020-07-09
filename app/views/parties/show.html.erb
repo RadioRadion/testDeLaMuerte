@@ -11,9 +11,16 @@
   </div>
 
   <div class="d-flex justify-content-center flex-wrap pb-5">
-    <% @party.ten_letters_list.chars.each do |letter| %>
-      <div class="letter-card text-shadow"><%= letter %></div>
-    <% end %>
+    <div class="d-flex justify-content-center">
+      <% @party.ten_letters_list.chars.first(5).each do |letter| %>
+        <div class="letter-card text-shadow"><%= letter %></div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <% @party.ten_letters_list.chars.last(5).each do |letter| %>
+        <div class="letter-card text-shadow"><%= letter %></div>
+      <% end %>
+    </div>
   </div>
 
   <h2><%= @party.word %></h2>

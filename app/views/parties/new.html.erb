@@ -1,8 +1,15 @@
 <div class="container py-5 text-center  ">
   <div class="d-flex justify-content-center flex-wrap pb-5">
-    <% @letters.chars.each do |letter| %>
-      <div class="letter-card text-shadow"><%= letter %></div>
-    <% end %>
+    <div class="d-flex justify-content-center">
+      <% @letters.chars.first(5).each do |letter| %>
+        <div class="letter-card text-shadow"><%= letter %></div>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-center">
+      <% @letters.chars.last(5).each do |letter| %>
+        <div class="letter-card text-shadow"><%= letter %></div>
+      <% end %>
+    </div>
   </div>
 
   <%= simple_form_for @party do |f| %>
