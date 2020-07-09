@@ -7,12 +7,12 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= favicon_link_tag asset_path('favicon.png') %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
 
     <!-- load application.js de asset pour PWA -->
     <%= javascript_include_tag 'application' %>
   <link rel="manifest" href="/manifest.json" />
+    <%= favicon_link_tag asset_path('favicon.png') %>
 <meta name="apple-mobile-web-app-capable" content="yes"></head>
 
   <body>
